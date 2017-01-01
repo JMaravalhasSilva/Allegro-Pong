@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_native_dialog.h>
 
 #ifdef DEBUG_BUILD
 #define Debug(x) x
@@ -31,18 +32,21 @@ bool allegro_inits() {
 		)
 
 		
-	if (!al_init()) {
-		Debug( std::cout << "Failed to initialize: al_init() returned false" << std::endl );
+	if (al_init()==false) {
+		Debug(std::cout << "al_init() returned false" << std::endl);
+		al_show_native_message_box(NULL,"Initialization error","","Failed to initialize the Allegro system",NULL,ALLEGRO_MESSAGEBOX_ERROR);
 		return false;
 	}
 
-	if (!al_install_keyboard()) {
-		Debug(std::cout << "Failed to initialize: al_install_keyboard() returned false" << std::endl);
+	if (al_install_keyboard()==false) {
+		Debug(std::cout << "al_install_keyboard() returned false" << std::endl);
+		al_show_native_message_box(NULL, "Initialization error", "", "Failed to install keyboard driver", NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return false;
 	}
 
-	if (!al_create_display(800, 600)) {
+	if (al_create_display(800, 600)==NULL) {
 		Debug(std::cout << "Failed to initialize: al_create_display() returned false" << std::endl);
+		al_show_native_message_box(NULL, "Initialization error", "", "Failed to create display", NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return false;
 	}
 
@@ -57,7 +61,7 @@ bool allegro_inits() {
 int  main() {
 
 
-	if (!allegro_inits()) {
+	if (allegro_inits()==false) {
 		return -1;
 	}
 
