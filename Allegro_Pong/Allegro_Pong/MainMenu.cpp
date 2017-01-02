@@ -22,3 +22,8 @@ void MainMenu::logic() {
 void MainMenu::render() {
 
 }
+
+GameStatesEnum MainMenu::get_next_state() {
+
+	return STATE_MAIN_MENU;
+}

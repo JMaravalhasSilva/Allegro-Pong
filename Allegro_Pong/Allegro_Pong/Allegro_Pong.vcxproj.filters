@@ -13,19 +13,28 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="GameState implementations">
+    <Filter Include="Game loop state machine">
       <UniqueIdentifier>{1f0d7870-e844-4933-9ad0-e677070d404f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game loop state machine\Header Files">
+      <UniqueIdentifier>{05d7e9dc-ef2b-48da-9911-4657ab3b2cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game loop state machine\Source Files">
+      <UniqueIdentifier>{2749094f-7483-436a-955b-6bd8e6f1dd88}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>GameState implementations</Filter>
-    </ClCompile>
     <ClCompile Include="InGame.cpp">
-      <Filter>GameState implementations</Filter>
+      <Filter>Game loop state machine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Game loop state machine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainAuxiliaryFunctions.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -33,7 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
+      <Filter>Game loop state machine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassesForGameStates.h">
+      <Filter>Game loop state machine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainAuxiliaryFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf" />
   </ItemGroup>
 </Project>
