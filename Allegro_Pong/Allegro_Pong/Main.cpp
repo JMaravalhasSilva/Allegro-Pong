@@ -3,6 +3,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
 
+#include "GameState.h"
+
 #ifdef DEBUG_BUILD
 #define Debug(x) x
 #else
@@ -10,6 +12,11 @@
 #endif
 
 #define FPS 60
+
+
+
+
+
 
 //Initializes all allegro related stuff. Returns true if everything was successful
 bool allegro_inits() {
@@ -58,6 +65,8 @@ bool allegro_inits() {
 }
 
 
+
+
 int  main() {
 
 
@@ -66,13 +75,54 @@ int  main() {
 	}
 
 	
+	ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+	ALLEGRO_TIMER* gamelooptimer = al_create_timer(1.0 / FPS);
+
+	al_register_event_source(event_queue, al_get_display_event_source(al_get_current_display()));
+
+
 
 	
 
-	ALLEGRO_TIMER* gamelooptimer = al_create_timer(1.0 / FPS);
+	//Enumerators that indicate the current game state
+	enum GameStatesEnum {
+		STATE_MAIN_MENU,
+		STATE_IN_GAME,
+		STATE_QUIT
+	};
+
+	GameStatesEnum state_flag = STATE_MAIN_MENU;
+
+	GameState* GameLoop = new MainMenu;
+
+	while (state_flag != STATE_QUIT) {
+
+		GameLoop->handle_events();
+		GameLoop->logic();
+		GameLoop->render();
+
+	}
 
 
-	while (1);
+	/*
+	bool quit = false;
 
+	while (quit==false) {
+
+		if (!al_is_event_queue_empty(event_queue)) {
+			ALLEGRO_EVENT event;
+			al_get_next_event(event_queue, &event);
+			Debug(std::cout << "Detected display event" << std::endl;)
+			
+			if (event.type==ALLEGRO_EVENT_DISPLAY_CLOSE) {
+				quit = true;
+			}
+		}
+	
+		
+
+	}
+	*/
+	
 	return 0;
 }
