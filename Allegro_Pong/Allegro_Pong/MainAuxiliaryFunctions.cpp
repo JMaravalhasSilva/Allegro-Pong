@@ -89,6 +89,9 @@ bool allegro_inits(ALLEGRO_TIMER** gamelooptimer, ALLEGRO_EVENT_QUEUE** timer_ev
 
 	al_register_event_source(*timer_event_queue, al_get_timer_event_source(*gamelooptimer));
 
+	al_init_font_addon();
+	al_init_ttf_addon();
+
 	Debug(std::cout << "Initialization successful" << std::endl);
 	return true;
 }

@@ -60,6 +60,10 @@ class InGame : public GameState {
 		CPUPaddle cpupaddle;
 		int playerscore;
 		int cpuscore;
+		ALLEGRO_EVENT_QUEUE* keyboard_event_queue;
+		bool actions[2];
+		ALLEGRO_FONT *font;
+		void scored();
 };
 
 
