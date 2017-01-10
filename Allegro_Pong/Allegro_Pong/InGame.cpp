@@ -13,8 +13,12 @@ InGame::InGame() {
 	playerscore = 0;
 	cpuscore = 0;
 	
-	ball.Xspeed = 1;
-	ball.Yspeed = 1;
+	ball.Xspeed = (-5) + (rand() % (int)(5 - (-5) + 1));
+	ball.Yspeed = (-5) + (rand() % (int)(5 - (-5) + 1));
+
+	if (ball.Xspeed == 0) {
+		ball.Xspeed = 1;
+	}
 
 	ball.Xposition = SCREEN_WIDTH / 2;
 	ball.Yposition = SCREEN_HEIGHT / 2;
@@ -109,15 +113,16 @@ void InGame::handle_events() {
 
 void InGame::logic() {
 
-	//Add speeds to player
+	//Add speeds to player. Positive Y is down! 
 	if (actions[GO_UP] == true) {
-		playerpaddle.Yspeed += 1;
-	}
-
-	if (actions[GO_DOWN] == true) {
 		playerpaddle.Yspeed -= 1;
 	}
 
+	if (actions[GO_DOWN] == true) {
+		playerpaddle.Yspeed += 1;
+	}
+
+	//Brakes the paddle when player is not pressing anything
 	if (actions[GO_DOWN] == false && actions[GO_UP] == false) {
 		if (playerpaddle.Yspeed>0) {
 			playerpaddle.Yspeed -= 1;
@@ -130,10 +135,11 @@ void InGame::logic() {
 
 	//Add speeds to CPU
 	//CPU will always try to go after the current ball position.
+	//Remember that negative Y is up and positive Y is down!
 	if ((ball.Yposition - cpupaddle.Yposition) < 0) {
-		cpupaddle.Yspeed += 1;
-	}else if ((ball.Yposition - cpupaddle.Yposition) > 0) {
 		cpupaddle.Yspeed -= 1;
+	}else if ((ball.Yposition - cpupaddle.Yposition) > 0) {
+		cpupaddle.Yspeed += 1;
 	}
 
 	//Cap player speed
@@ -153,8 +159,7 @@ void InGame::logic() {
 
 	
 	//Move player
-	//Minus sign is needed because the Y axis is from top to bottom
-	playerpaddle.Yposition -= playerpaddle.Yspeed;
+	playerpaddle.Yposition += playerpaddle.Yspeed;
 
 	//Cap player position
 	if (playerpaddle.Yposition > SCREEN_HEIGHT - 30) {
@@ -166,7 +171,7 @@ void InGame::logic() {
 	}
 
 	//Move CPU
-	cpupaddle.Yposition -= cpupaddle.Yspeed;
+	cpupaddle.Yposition += cpupaddle.Yspeed;
 
 	//Cap CPU position
 	if (cpupaddle.Yposition > SCREEN_HEIGHT - 30) {
@@ -178,6 +183,11 @@ void InGame::logic() {
 		cpupaddle.Yspeed = 0;
 	}
 
+	//Cap ball Y speed so that game doesn't become impossible to play ;)
+	if (ball.Yspeed >= 30) {
+		ball.Yspeed = 30;
+	}
+
 	//Move ball
 	ball.Xposition += ball.Xspeed;
 	ball.Yposition += ball.Yspeed;
@@ -187,15 +197,66 @@ void InGame::logic() {
 		ball.Yspeed = -ball.Yspeed;
 	}
 
+	//Ball colision with CPU paddle
+	if (ball.Xposition >= SCREEN_WIDTH - 12 - 10) {
+		
+		//if X position is suitable for ball collision, check Y position (+-3 adds some tolerance to colision)
+		if (ball.Yposition >= cpupaddle.Yposition - 30 - 3 && ball.Yposition <= cpupaddle.Yposition + 30 + 3) {
+			//Invert X speed and increase 1
+			ball.Xspeed = -ball.Xspeed -1; 
+			//Add some Y speed to the ball
+			ball.Yspeed += 0.2*cpupaddle.Yspeed;
+
+			//Reset ball position so it doesn't collide with the paddle again
+			ball.Xposition = SCREEN_WIDTH - 12 - 10;
+		}
+			
+
+	}
+
+	//Ball colision with player paddle
+	if (ball.Xposition <= 12) {
+
+		//if X position is suitable for ball collision, check Y position
+		if (ball.Yposition >= playerpaddle.Yposition - 30 - 3 && ball.Yposition <= playerpaddle.Yposition + 30 + 3) {
+			//Invert X speed and increase 1
+			ball.Xspeed = -ball.Xspeed + 1;
+			//Add some Y speed to the ball
+			ball.Yspeed += 0.2*playerpaddle.Yspeed;
+
+			//Reset ball position so it doesn't collide with the paddle again
+			ball.Xposition = 12 ;
+		}
+
+
+	}
+
 
 	if ((ball.Xposition >= SCREEN_WIDTH - 10)) {
 		
+		ball.Xspeed = (-5) + (rand() % (int)(5 - (-5) + 1));
+		ball.Yspeed = (-5) + (rand() % (int)(5 - (-5) + 1));
+
+		ball.Xposition = SCREEN_WIDTH / 2;
+		ball.Yposition = SCREEN_HEIGHT / 2;
+
 		playerscore += 1;
 	}
 
 	if ((ball.Xposition < 10)) {
 		
+		ball.Xspeed = (-5) + (rand() % (int)(5 - (-5) + 1));
+		ball.Yspeed = (-5) + (rand() % (int)(5 - (-5) + 1));
+
+		ball.Xposition = SCREEN_WIDTH / 2;
+		ball.Yposition = SCREEN_HEIGHT / 2;
+
 		cpuscore += 1;
+	}
+
+	//Small correction in case the Xspeed is zero due to random number generation
+	if (ball.Xspeed == 0) {
+		ball.Xspeed = 1;
 	}
 
 

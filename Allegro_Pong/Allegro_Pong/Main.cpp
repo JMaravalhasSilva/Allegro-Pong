@@ -24,6 +24,7 @@ int  main() {
 		GameLoop->render();
 
 		next_state=GameLoop->get_next_state();
+
 		if (next_state  != current_state ) {
 			current_state=change_gameloop_state(GameLoop,next_state);
 		}

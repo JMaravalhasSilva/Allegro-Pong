@@ -4,10 +4,10 @@
 class Ball {
 
 	public:
-		int Yspeed;
-		int Xspeed;
-		int Yposition;
-		int Xposition;
+		float Yspeed;
+		float Xspeed;
+		float Yposition;
+		float Xposition;
 };
 
 class PlayerPaddle {
