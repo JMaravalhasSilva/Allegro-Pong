@@ -36,6 +36,9 @@
     <ClCompile Include="MainAuxiliaryFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ClassesForGameStates.cpp">
+      <Filter>Game loop state machine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

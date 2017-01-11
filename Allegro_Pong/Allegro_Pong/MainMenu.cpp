@@ -99,8 +99,10 @@ void MainMenu::logic() {
 
 void MainMenu::render() {
 
-	al_draw_filled_rectangle(play_button.x-(play_button.width/2), play_button.y - (play_button.height / 2), play_button.x + (play_button.width / 2), play_button.y + (play_button.height / 2), al_map_rgb(255, 255, 255));
-	al_draw_filled_rectangle(exit_button.x - (exit_button.width / 2), exit_button.y - (exit_button.height / 2), exit_button.x + (exit_button.width / 2), exit_button.y + (exit_button.height / 2), al_map_rgb(255, 255, 255));
+	//Draw play and exit buttons
+	play_button.draw_button(al_map_rgb(255, 255, 255));
+	exit_button.draw_button(al_map_rgb(255, 255, 255));
+	
 	al_flip_display();
 
 }

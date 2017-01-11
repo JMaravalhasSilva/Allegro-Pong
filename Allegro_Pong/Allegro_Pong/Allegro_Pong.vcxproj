@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClassesForGameStates.cpp" />
     <ClCompile Include="MainAuxiliaryFunctions.cpp" />
     <ClCompile Include="InGame.cpp" />
     <ClCompile Include="Main.cpp" />
