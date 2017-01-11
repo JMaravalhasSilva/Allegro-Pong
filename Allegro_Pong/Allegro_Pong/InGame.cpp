@@ -2,7 +2,7 @@
 
 
 enum PlayerActions {
-	GO_UP,GO_DOWN
+	GO_UP,GO_DOWN,EXITGAME
 };
 
 
@@ -29,7 +29,7 @@ InGame::InGame() {
 	cpupaddle.Yposition = SCREEN_HEIGHT / 2;
 	cpupaddle.Yspeed = 0;
 
-	for (int i = 0; i <= 1; i++) {
+	for (int i = 0; i <= 2; i++) {
 		actions[i] = false;
 	}
 
@@ -42,6 +42,8 @@ InGame::InGame() {
 }
 
 InGame::~InGame() {
+
+	al_destroy_font(font);
 
 	//There is no need to unregister the queue because Allegro takes care of that automatically
 	al_destroy_event_queue(keyboard_event_queue);
@@ -73,6 +75,9 @@ void InGame::handle_events() {
 			case ALLEGRO_KEY_S:
 				actions[GO_DOWN] = true;
 				break;
+
+			case ALLEGRO_KEY_ESCAPE:
+				actions[EXITGAME] = true;
 
 			default:
 				break;
@@ -112,6 +117,10 @@ void InGame::handle_events() {
 }
 
 void InGame::logic() {
+
+	if (actions[EXITGAME] == true) {
+		return;
+	}
 
 	//Add speeds to player. Positive Y is down! 
 	if (actions[GO_UP] == true) {
@@ -288,6 +297,11 @@ void InGame::render() {
 }
 
 GameStatesEnum InGame::get_next_state() {
+
+	if (actions[EXITGAME] == true) {
+		return STATE_MAIN_MENU;
+	}
+
 
 	return STATE_IN_GAME;
 }

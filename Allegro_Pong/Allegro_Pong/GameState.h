@@ -38,6 +38,13 @@ class MainMenu : public GameState {
 		void logic();
 		void render();
 		GameStatesEnum get_next_state();
+
+	private:
+		int mouse_x, mouse_y;
+		bool actions[2];
+		ALLEGRO_FONT *font;
+		ALLEGRO_EVENT_QUEUE* mouse_event_queue;
+		GuiButton play_button, exit_button;
 };
 
 class InGame : public GameState {
@@ -61,7 +68,7 @@ class InGame : public GameState {
 		int playerscore;
 		int cpuscore;
 		ALLEGRO_EVENT_QUEUE* keyboard_event_queue;
-		bool actions[2];
+		bool actions[3];
 		ALLEGRO_FONT *font;
 		void scored();
 };

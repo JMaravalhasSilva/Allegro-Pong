@@ -62,6 +62,11 @@ bool allegro_inits(ALLEGRO_TIMER** gamelooptimer, ALLEGRO_EVENT_QUEUE** timer_ev
 		return false;
 	}
 
+	if (al_install_mouse() == false) {
+		al_show_native_message_box(NULL, "Initialization error", "", "Failed to install mouse driver", NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		return false;
+	}
+
 	if (al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT) == NULL) {
 		al_show_native_message_box(NULL, "Initialization error", "", "Failed to create display", NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return false;

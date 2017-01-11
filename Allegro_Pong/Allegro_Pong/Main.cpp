@@ -7,7 +7,7 @@
 int  main() {
 	ALLEGRO_TIMER* gamelooptimer = NULL;
 	ALLEGRO_EVENT_QUEUE* timer_event_queue = NULL;
-	GameStatesEnum current_state = STATE_IN_GAME, next_state = STATE_IN_GAME;
+	GameStatesEnum current_state = STATE_MAIN_MENU, next_state = STATE_MAIN_MENU;
 
 	if (allegro_inits(&gamelooptimer, &timer_event_queue)==false) {
 		return -1;
@@ -15,7 +15,7 @@ int  main() {
 
 	al_start_timer(gamelooptimer);
 	
-	GameState* GameLoop = new InGame;
+	GameState* GameLoop = new MainMenu;
 
 	while (current_state != STATE_QUIT) {
 
